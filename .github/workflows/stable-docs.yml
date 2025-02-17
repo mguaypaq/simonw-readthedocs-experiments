@@ -52,13 +52,9 @@ jobs:
         # Check if the list of files is non-empty
         if [[ -n "$FILES" ]]; then
           # Checkout those files to the stable branch to over-write with their contents
-          for FILE in $FILES; do
-            git checkout ${{ github.sha }} -- $FILE
-          done
-          git add docs/
+          git checkout ${{ github.sha }} -- $FILES
           git commit -m "Doc changes from ${{ github.sha }}"
           git push origin stable
         else
           echo "No changes to docs/ in this commit"
-          exit 0
         fi
